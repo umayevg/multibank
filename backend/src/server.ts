@@ -1,5 +1,5 @@
 import http from "http"
-import { tickers, getHistorical } from "./tickers"
+import { tickers, getHistoricalCached } from "./tickers"
 import { WebSocketServer } from 'ws'
 
 const port = 4000
@@ -18,7 +18,7 @@ const server = http.createServer((req, res) => {
 	if (url.startsWith("/historical/")) {
 		const symbol = url.split("/")[2]
 
-		const data = getHistorical(symbol)
+		const data = getHistoricalCached(symbol)
 
 		res.end(JSON.stringify({
 			symbol,
