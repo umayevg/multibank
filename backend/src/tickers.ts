@@ -13,8 +13,9 @@ export function getHistorical(symbol: string) {
 	let price = base
 
 	for (let i = 0; i < 100; i++) {
-		const change = (Math.random() - 0.5) * 5
-		price = price + change
+		const volatility = Math.random() < 0.1 ? 0.2 : 0.05
+		const percentChange = (Math.random() - 0.5) * volatility
+		price = price * (1 + percentChange)
 
 		data.push({
 			price: Math.round(price * 100) / 100,

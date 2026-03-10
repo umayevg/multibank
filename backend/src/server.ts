@@ -59,7 +59,7 @@ function updatePrices() {
 	})
 }
 
-setInterval(updatePrices, 1500)
+setInterval(updatePrices, 1000)
 
 server.listen(port, () => {
 	console.log("server running on port", port)
