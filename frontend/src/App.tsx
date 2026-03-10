@@ -12,18 +12,21 @@ type Point = {
 }
 
 function App() {
+  const API = import.meta.env.VITE_API_URL
   const [tickers, setTickers] = useState<Ticker[]>([])
+  const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState<string | null>(null)
   const [history, setHistory] = useState<Point[]>([])
   const [prevPrices, setPrevPrices] = useState<Record<string, number>>({})
 
   // load tickers
   useEffect(() => {
-    fetch("http://localhost:4000/tickers")
+    fetch(`${API}/tickers`)
       .then((res) => res.json())
       .then((data) => {
         setTickers(data)
         if (data.length) setSelected(data[0].symbol)
+        setLoading(false)
       })
   }, [])
 
@@ -31,7 +34,7 @@ function App() {
   useEffect(() => {
     if (!selected) return
 
-    fetch(`http://localhost:4000/historical/${selected}`)
+    fetch(`${API}/historical/${selected}`)
       .then((res) => res.json())
       .then((data) => {
         setHistory(data.data)
@@ -77,6 +80,15 @@ function App() {
 
     return () => ws.close()
   }, [selected])
+
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-slate-400">
+        Loading market data...
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 px-4 sm:px-6 lg:px-10 py-6">
@@ -126,7 +138,6 @@ function App() {
 
         </div>
 
-        {/* chart */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-6 h-80 sm:h-100 lg:h-125">
           <PriceChart data={history} />
         </div>
