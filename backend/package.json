@@ -3,11 +3,15 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "ts-node-dev src/server.ts"
+		"dev": "ts-node-dev src/server.ts",
+		"test": "jest --passWithNoTests"
 	},
 	"devDependencies": {
+		"@types/jest": "^30.0.0",
 		"@types/node": "^25.3.5",
 		"@types/ws": "^8.18.1",
+		"jest": "^30.3.0",
+		"ts-jest": "^29.4.6",
 		"ts-node-dev": "^2.0.0",
 		"typescript": "^5.9.3"
 	},
