@@ -79,13 +79,16 @@ function App() {
   }, [selected])
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-10">
-      <h1 className="text-3xl font-semibold mb-8">Trading Dashboard</h1>
+    <div className="min-h-screen bg-slate-950 text-slate-100 px-4 sm:px-6 lg:px-10 py-6">
 
-      <div className="grid grid-cols-[260px_1fr] gap-8">
+      <h1 className="text-2xl sm:text-3xl font-semibold mb-6">
+        Trading Dashboard
+      </h1>
 
-        {/* ticker list */}
-        <div className="space-y-3">
+      <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6">
+
+        <div className="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
+
           {tickers.map((ticker) => {
             const prev = prevPrices[ticker.symbol]
             const isUp = prev !== undefined && ticker.price > prev
@@ -95,16 +98,20 @@ function App() {
               <div
                 key={ticker.symbol}
                 onClick={() => setSelected(ticker.symbol)}
-                className={`flex justify-between items-center p-4 rounded-xl cursor-pointer transition
+                className={`shrink-0 lg:shrink flex justify-between items-center 
+                min-w-35 lg:min-w-0 
+                p-3 sm:p-4 rounded-xl cursor-pointer transition
                 ${selected === ticker.symbol
                     ? "bg-slate-800 border border-blue-500"
                     : "bg-slate-900 hover:bg-slate-800 border border-slate-800"
                   }`}
               >
-                <span className="font-medium">{ticker.symbol}</span>
+                <span className="font-medium text-sm sm:text-base">
+                  {ticker.symbol}
+                </span>
 
                 <span
-                  className={`font-semibold transition-colors duration-300 ${isUp
+                  className={`font-semibold text-sm sm:text-base transition-colors duration-300 ${isUp
                     ? "text-green-400"
                     : isDown
                       ? "text-red-400"
@@ -116,10 +123,11 @@ function App() {
               </div>
             )
           })}
+
         </div>
 
         {/* chart */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 sm:p-6 h-80 sm:h-100 lg:h-125">
           <PriceChart data={history} />
         </div>
 
