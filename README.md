@@ -32,8 +32,11 @@ This project is a small real-time trading dashboard built as part of a coding ch
 - Real-time price updates via WebSocket
 - List of available tickers
 - Interactive price chart
-- Switch between instruments
+- Ability to switch between instruments
 - Mock historical price data
+- Responsive dashboard layout
+- Loading state while fetching market data
+- Environment-based API configuration using Vite environment variables
 
 ---
 
@@ -41,22 +44,31 @@ This project is a small real-time trading dashboard built as part of a coding ch
 
 The backend service simulates a market data feed and exposes:
 
-REST API endpoints:
+### REST API
 
 - `GET /tickers`
+  Returns a list of available tickers and their current prices.
+
 - `GET /historical/:ticker`
+  Returns mocked historical price data for a given ticker.
 
-WebSocket:
+### WebSocket
 
-- Streams real-time price updates for all tickers
+A WebSocket server broadcasts price updates to connected clients in real time.
 
-The frontend consumes both the REST API and WebSocket stream to render the dashboard and update prices in real time.
+### Frontend
+
+The React dashboard:
+
+- fetches initial data via REST
+- subscribes to WebSocket updates
+- updates ticker prices and chart data in real time
 
 ---
 
-## Running the project
+## Running the Project
 
-### Option 1 — Run with Docker (recommended)
+### Option 1 — Run with Docker (Recommended)
 
 Make sure Docker is installed.
 
@@ -82,7 +94,7 @@ http://localhost:4000
 
 ---
 
-### Option 2 — Run locally without Docker
+### Option 2 — Run Locally Without Docker
 
 #### Backend
 
@@ -114,8 +126,43 @@ http://localhost:5173
 
 ---
 
-## Assumptions
+## Environment Variables
 
-- Market data is simulated using random price movements.
-- Historical price data is generated dynamically by the backend.
-- The focus of this project is demonstrating real-time data flow and dashboard interaction.
+Frontend uses environment variables to configure the backend API URL.
+
+Example `.env` file inside the `frontend` directory:
+
+```
+VITE_API_URL=http://localhost:4000
+```
+
+---
+
+## Assumptions & Trade-offs
+
+- Market data is simulated using random price changes on the backend.
+- Historical price data is generated dynamically rather than stored in a database.
+- WebSocket updates are broadcast to all connected clients.
+
+---
+
+## Bonus Features
+
+- Responsive UI for mobile and desktop
+- Docker + Docker Compose setup for easy local execution
+- Environment-based configuration for API URLs
+- Real-time chart updates
+
+---
+
+## Running Tests
+
+Backend unit tests can be executed from the `backend` directory.
+
+```
+cd backend
+npm install
+npm run test
+```
+
+If no tests are present, this command will simply exit without running tests.
