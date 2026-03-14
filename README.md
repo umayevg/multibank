@@ -2,6 +2,10 @@
 
 This project is a small real-time trading dashboard built as part of a coding challenge.
 
+## Live Demo
+
+https://multibank-nu.vercel.app/
+
 ---
 
 ## Tech Stack
