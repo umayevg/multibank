@@ -48,6 +48,7 @@ function updatePrices() {
 
 	const text = JSON.stringify({
 		type: 'update',
+		time: Date.now(),
 		data: tickers
 	})
 
