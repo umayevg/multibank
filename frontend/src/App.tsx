@@ -43,7 +43,10 @@ function App() {
 
   // websocket realtime prices
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:4000")
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:4000"
+
+    const wsUrl = apiUrl.replace(/^http/, "ws")
+    const ws = new WebSocket(wsUrl)
 
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data)
