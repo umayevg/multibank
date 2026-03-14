@@ -63,19 +63,9 @@ function App() {
           const ticker = message.data.find((t: Ticker) => t.symbol === selected)
 
           if (ticker) {
-            setHistory((old) => {
-              const next = [
-                ...old,
-                {
-                  price: ticker.price,
-                  time: Date.now()
-                }
-              ]
-
-              if (next.length > 120) next.shift()
-
-              return next
-            })
+            setHistory(old =>
+              [...old, { price: ticker.price, time: message.time }].slice(-120)
+            )
           }
         }
       }

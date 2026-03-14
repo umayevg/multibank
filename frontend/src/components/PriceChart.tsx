@@ -33,8 +33,7 @@ export default function PriceChart({ data }: Props) {
 					<XAxis
 						dataKey="time"
 						tick={{ fill: "#94a3b8", fontSize: 12 }}
-						axisLine={false}
-						tickLine={false}
+						interval={"preserveStartEnd"}
 					/>
 
 					<YAxis
