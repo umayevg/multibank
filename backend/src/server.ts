@@ -2,7 +2,7 @@ import http from "http"
 import { tickers, getHistoricalCached } from "./tickers"
 import { WebSocketServer } from 'ws'
 
-const port = 4000
+const port = process.env.PORT || 4000
 
 const server = http.createServer((req, res) => {
 	const url = req.url || ""
