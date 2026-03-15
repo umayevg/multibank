@@ -23,7 +23,7 @@ export default function PriceChart({ data }: Props) {
 		minute: "2-digit",
 		hour12: false
 	})
-	const thirtyMinutes = 30 * 60 * 1000
+	const thirtyMinutes = 15 * 60 * 1000
 
 	const formatted = data.map((p) => ({
 		price: p.price,
