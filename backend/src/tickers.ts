@@ -13,18 +13,20 @@ export const tickers: Tick[] = [
 export function getHistorical(symbol: string, points = 100): HistoryPoint[] {
 	const base = tickers.find(t => t.symbol === symbol)?.price || 100
 
-	const data = []
+	const data: HistoryPoint[] = []
+	const now = Date.now()
 
 	let price = base
 
 	for (let i = 0; i < points; i++) {
 		const volatility = Math.random() < 0.1 ? 0.2 : 0.05
 		const percentChange = (Math.random() - 0.5) * volatility
-		price = price * (1 + percentChange)
+
+		price = Math.max(0.01, price * (1 + percentChange))
 
 		data.push({
 			price: Math.round(price * 100) / 100,
-			time: Date.now() - (points - i) * 60000
+			time: now - (points - i) * 60000
 		})
 	}
 

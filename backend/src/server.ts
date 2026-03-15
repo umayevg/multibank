@@ -42,8 +42,11 @@ wsServer.on('connection', ws => {
 
 function updatePrices() {
 	tickers.forEach(ticker => {
-		const change = (Math.random() - 0.5) * 2
-		ticker.price = Math.round((ticker.price + change) * 100) / 100
+		const volatility = Math.random() < 0.1 ? 0.2 : 0.05
+		const percentChange = (Math.random() - 0.5) * volatility
+
+		ticker.price = Math.max(0.01, ticker.price * (1 + percentChange))
+		ticker.price = Math.round(ticker.price * 100) / 100
 	})
 
 	const text = JSON.stringify({
@@ -51,7 +54,6 @@ function updatePrices() {
 		time: Date.now(),
 		data: tickers
 	})
-
 
 	wsServer.clients.forEach(client => {
 		if (client.readyState === 1) {
