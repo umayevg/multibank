@@ -4,10 +4,10 @@ export type Tick = {
 }
 
 export const tickers: Tick[] = [
-	{ symbol: "AAPL", price: 170 },
-	{ symbol: "TSLA", price: 180 },
-	{ symbol: "BTC-USD", price: 65000 },
-	{ symbol: "ETH-USD", price: 3500 }
+	{ symbol: "AAPL", price: 250.12 },
+	{ symbol: "TSLA", price: 391.20 },
+	{ symbol: "BTC-USD", price: 71572.20 },
+	{ symbol: "ETH-USD", price: 2092.89 }
 ]
 
 export function getHistorical(symbol: string, points = 100): HistoryPoint[] {
